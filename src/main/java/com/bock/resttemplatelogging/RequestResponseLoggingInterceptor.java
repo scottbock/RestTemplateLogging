@@ -17,13 +17,13 @@ public class RequestResponseLoggingInterceptor	implements ClientHttpRequestInter
 
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
-        traceRequest(request, body);
+        logRequest(request, body);
         ClientHttpResponse response = execution.execute(request, body);
-        traceResponse(response);
+        logResponse(response);
         return response;
     }
 
-    private void traceRequest(HttpRequest request, byte[] body) throws IOException {
+    private void logRequest(HttpRequest request, byte[] body) throws IOException {
         log.debug("===========================request begin================================================");
         log.debug("URI         : {}", request.getURI());
         log.debug("Method      : {}", request.getMethod());
@@ -32,7 +32,7 @@ public class RequestResponseLoggingInterceptor	implements ClientHttpRequestInter
         log.debug("==========================request end================================================");
     }
 
-    private void traceResponse(ClientHttpResponse response) throws IOException {
+    private void logResponse(ClientHttpResponse response) throws IOException {
         log.debug("============================response begin==========================================");
         log.debug("Status code  : {}", response.getStatusCode());
         log.debug("Status text  : {}", response.getStatusText());
